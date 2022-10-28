@@ -1,0 +1,96 @@
+library(shiny)
+library(shinythemes)
+library(shinyBS)
+library(shinyFeedback)
+
+ui <- fluidPage(
+  title="Selection bias in linear regression ", theme=shinytheme("lumen"),
+  titlePanel(h1("Selection bias in linear regression", align="center")),
+  fluidRow(
+    plotOutput(outputId="scatterPlot", height="700px"),
+    shinyFeedback::useShinyFeedback()
+  ),
+  
+  fluidRow(
+    column(2,
+           h3("Data generation"),
+           numericInput("n",
+                        label="Number of observations:",
+                        value=100,
+                        step=10,
+                        min=1,
+                        width="80%"),
+           numericInput("sd_res",
+                        label="Residual variation (sd):",
+                        value=1,
+                        step=0.1,
+                        min=0,
+                        width="80%"),
+           numericInput("beta0",
+                        label="Intercept:",
+                        value=0,
+                        step=0.1,
+                        width="80%"),
+           numericInput("beta1",
+                        label="Slope:",
+                        value=1,
+                        step=0.1,
+                        width="80%"),
+           div(style="padding: 10px 0px 0px 0px;", 
+               actionButton("generate", 
+                            label="Generate new data",
+                            width="80%")
+           ),
+           offset=2
+    ),
+    column(2,
+           h3("Preferences"),
+           div(style="padding: 0px 0px 0px 0px;", 
+               radioButtons("toggle_points", 
+                       label="Observations:",
+                       choices=c("Show"=TRUE, "Hide"=FALSE),
+                       selected=TRUE,
+                       inline=TRUE)
+          ),
+          div(style="padding: 0px 0px 0px 0px;", 
+              radioButtons("toggle_selection", 
+                           label="Selection:",
+                           choices=c("On"=TRUE, "Off"=FALSE),
+                           selected=FALSE,
+                           inline=TRUE)
+          ),
+          sliderInput("transparency", 
+                       label="Transparency (observations):", 
+                       min=0, 
+                       max=1, 
+                       value=1, 
+                       step=0.05, 
+                       width="80%"),
+        ),
+    column(2,
+           h3("Selection"),
+           sliderInput("yrange",
+                       label="Range (y)",
+                       min=-10,
+                       max=10,
+                       value=c(-10,10),
+                       width="80%"),
+           sliderInput("xrange",
+                       label="Range (x)",
+                       min=-10,
+                       max=10,
+                       value=c(-10,10),
+                       width="80%"),
+    ),
+
+    column(2,
+           h3("Results"),
+           h4("Estimates (all)"),
+           tableOutput("estimates_all"),
+           h4("Estimates (selected)"),
+           tableOutput("estimates_sel"),
+    )
+  ),
+  bsTooltip(id="xrange", title="Select only observations with an X-value in this range", placement="right", trigger="hover"),
+  bsTooltip(id="yrange", title="Select only observations with a Y-value in this range", placement="right", trigger="hover")
+)
