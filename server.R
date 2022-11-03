@@ -80,7 +80,7 @@ server <- function(input, output) {
   # the selection is created.
   selection <- reactive({
     if(!is.null(dat())) {
-      (dat()$y>=input$yrange[1] & dat()$y<=input$yrange[2] & dat()$x>=input$xrange[1] & dat()$x<=input$xrange[2])
+      (dat()$y >= input$yrange[1] & dat()$y <= input$yrange[2] & dat()$x >= input$xrange[1] & dat()$x <= input$xrange[2])
     }
     else {
       NULL
@@ -101,7 +101,7 @@ server <- function(input, output) {
   # If selected data is available, we fit a linear regression to those.
   observe({
     if (!is.null(sel_dat())) {
-      model2 <- lm(y~x, sel_dat())
+      model2 <- lm(y ~ x, sel_dat())
       sel_coefs$vals <- model2$coef
       sel_coefs$lower <- confint(model2)[,1]
       sel_coefs$upper <- confint(model2)[,2]
