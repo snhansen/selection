@@ -56,7 +56,7 @@ ui <- fluidPage(
               radioButtons("toggle_selection",
                            label = "Selection:",
                            choices = c("On", "Off"),
-                           selected = "Off",
+                           selected = "On",
                            inline = TRUE)),
           sliderInput("transparency", 
                        label = "Transparency (observations):",
