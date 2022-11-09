@@ -200,7 +200,7 @@ server <- function(input, output) {
                        shape = "Observations",
                        size = "Observations",
                        color = "Observations"),
-                   alpha = input$transparency) +
+                   alpha = ptrans) +
         scale_size_manual(name = "",
                           values = c("Observations" = 1.5)) +
         scale_shape_manual(name = "",
@@ -236,14 +236,14 @@ server <- function(input, output) {
                        shape = "Observations",
                        size = "Observations",
                        color = "Observations"),
-                   alpha = input$transparency) +
+                   alpha = ptrans) +
         geom_point(data = sel_dat,
                    aes(x = x,
                        y = y,
                        shape = "Observations (selected)",
                        size = "Observations (selected)",
                        color = "Observations (selected)"),
-                   alpha = input$transparency) +
+                   alpha = ptrans) +
         scale_size_manual(name = "",
                           values = c("Observations" = 1.5,
                                      "Observations (selected)" = 3)) +
